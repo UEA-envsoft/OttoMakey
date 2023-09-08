@@ -32,12 +32,14 @@ void OttoMakey::initMakey(int LL, int RL, int LF, int RF,int LA, int RA, int HD,
     }
   }
 
-  //manual trim
-  
-  servo[0].SetTrim(-8);
-  servo[1].SetTrim(-4);
-  servo[2].SetTrim(8);
-  servo[6].SetTrim(-5);
+  //manual trim  
+  servo[0].SetTrim(0);
+  servo[1].SetTrim(0);
+  servo[2].SetTrim(0);
+  servo[3].SetTrim(0);
+  servo[4].SetTrim(0);
+  servo[5].SetTrim(0);
+  servo[6].SetTrim(0);
   
   for (int i = 0; i < 7; i++) servo_position[i] = 90;
 
@@ -113,12 +115,6 @@ void OttoMakey::initMAKEY_LEDs(int LED_rl, int LED_rr,int LED_g,int LED_b)
   greenIntensity=0;
   blueIntensity=0;
 }
-
-/*
-#define RED_L    0
-#define RED_R    1
-#define BLUE     2
-#define GREEN    3*/
 
 void OttoMakey::setEye(int eye, int intensity)
 {
@@ -244,12 +240,6 @@ void OttoMakey::_moveServos(int time, int  servo_target[]) {
     servo_target[2] = 180 - servo_target[2];
     servo_target[3] = 180 - servo_target[3];
 
-    //fudge for a wimpy servo  MY OTTO ONLY REMOVE BEFORE SHARING
-    if (servo_target[3] > 0)servo_target[3] +=5;
-    if (servo_target[3] < 0)servo_target[3] -=5;
-
-
-
   if(time>10){
     for (int i = 0; i < 7; i++) increment[i] = ((servo_target[i]) - servo_position[i]) / (time / 10.0);
     final_time =  millis() + time;
@@ -291,11 +281,6 @@ void OttoMakey::oscillateServos(int A[7], int O[7], int T, double phase_diff[7],
 
 void OttoMakey::_execute(int A[7], int O[7], int T, double phase_diff[7], float steps = 1.0){
   
-  //fudge for a wimpy servo  MY OTTO ONLY REMOVE BEFORE SHARING
-  if (A[3] > 0)A[3] +=5;
-  if (A[3] < 0)A[3] -=5;
-
-
   attachServos();
   if(getRestState()==true){
         setRestState(false);
