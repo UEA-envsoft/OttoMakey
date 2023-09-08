@@ -1,7 +1,9 @@
 # OttoMakey
 Code for the Otto Makey robot to be controlled by the Otto Humanoid setting of the Otto bluetooth phone app  
 
-Be aware althoug functional this remains a work in progress!  
+Be aware that, although functional, this remains a work in progress!  
+
+![image](https://github.com/UEA-envsoft/OttoMakey/assets/64538329/34ca207f-491b-4e2d-9c59-1651081e79a3)
 
 Note this code uses default Rx and Tx for bluetooth communication so bluetooth module must be discinnected when code is uploaded over serial.  
 
@@ -11,7 +13,7 @@ The android version of the Otto DIY bluetooth controller can be found here https
 
 Makey was wired as follows:
 
-![image](https://github.com/UEA-envsoft/OttoMakey/assets/64538329/935b69fc-6451-484d-84cd-972c943e1e44)
+![image](https://github.com/UEA-envsoft/OttoMakey/assets/64538329/5d756b10-fc5b-44d5-af75-68486af9888e)
 
 Rather than perform a calibration I determined my trim values by manually adjusting the servos to find the adjustment values.
 
