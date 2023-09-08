@@ -15,6 +15,10 @@ Makey was wired as follows:
 
 ![image](https://github.com/UEA-envsoft/OttoMakey/assets/64538329/5d756b10-fc5b-44d5-af75-68486af9888e)
 
+If I understand what I have read correctly, both the HC-05 and HC-06 bluetooth modules are powered at 5v but use 3.3v logic, whereas the Nano produces a 5v Tx signal so I included a potential divider in my Tx(Nano) to Rx(bluetooth module) connection.  
+
+![366928412_677927230896373_1195863756038563531_n](https://github.com/UEA-envsoft/OttoMakey/assets/64538329/07f3d5a7-3b26-4f1b-84a6-afea39c52499)
+
 Rather than perform a calibration I determined my trim values by manually adjusting the servos to find the adjustment values.
 
 These are entered in OttoMakey.cpp on lines  36 to 42 as follows default is 0 for all
