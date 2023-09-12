@@ -16,9 +16,6 @@ OttoMakey Otto;   //This is Otto!
 ///////////////////////////////////////////////////////////////////
 int T=1000;              //Initial duration of movement
 int moveId=0;            //Number of movement
-int lastMoveId =1;
-int unknownCommand=0;
-int connectedCount = 0;
 int moveSize=15;         //Asociated with the height of some movements
 String serialCmd = "";
 char cmdType;
@@ -67,28 +64,22 @@ void loop() {
       
       switch(cmdType) {
         case 'S':
-          unknownCommand=0;
           receiveStop();
           break;
         case 'M':
-          unknownCommand=0;
           receiveMovement();
           break;
         case 'H':
-          unknownCommand=0;
           receiveGesture();
           break;
         case 'K':
-          unknownCommand=0;
           receiveSing();
           break;
         case 'E':
-          unknownCommand=0;
           Serial.println("eyes");
           if (arg1 != 0 && arg2 != 0) {Otto.setEye(arg1, arg2);}
           break;
         case 'X':
-          unknownCommand=0;
           Serial.println("TEST");
           Otto.servo[arg1].SetPosition(arg2);
           break;
@@ -96,8 +87,7 @@ void loop() {
           Otto.whiteEyes();
           Serial.print("unknown command: ");
           Serial.println(cmdType);
-          unknownCommand++;
-          if (unknownCommand > 2) receiveStop();         //seem to get the odd spurious command so only do a stop if we have received more than 3 
+          receiveStop();  
           break;
         }
     } 
