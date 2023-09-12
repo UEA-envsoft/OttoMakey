@@ -32,14 +32,12 @@ void OttoMakey::initMakey(int LL, int RL, int LF, int RF,int LA, int RA, int HD,
     }
   }
 
-  //manual trim  
-  servo[0].SetTrim(0);
-  servo[1].SetTrim(0);
-  servo[2].SetTrim(0);
-  servo[3].SetTrim(0);
-  servo[4].SetTrim(0);
-  servo[5].SetTrim(0);
-  servo[6].SetTrim(0);
+  //manual trim
+  
+  servo[0].SetTrim(-8);
+  servo[1].SetTrim(-4);
+  servo[2].SetTrim(8);
+  servo[6].SetTrim(-5);
   
   for (int i = 0; i < 7; i++) servo_position[i] = 90;
 
@@ -115,6 +113,12 @@ void OttoMakey::initMAKEY_LEDs(int LED_rl, int LED_rr,int LED_g,int LED_b)
   greenIntensity=0;
   blueIntensity=0;
 }
+
+/*
+#define RED_L    0
+#define RED_R    1
+#define BLUE     2
+#define GREEN    3*/
 
 void OttoMakey::setEye(int eye, int intensity)
 {
@@ -280,7 +284,6 @@ void OttoMakey::oscillateServos(int A[7], int O[7], int T, double phase_diff[7],
 }
 
 void OttoMakey::_execute(int A[7], int O[7], int T, double phase_diff[7], float steps = 1.0){
-  
   attachServos();
   if(getRestState()==true){
         setRestState(false);
@@ -439,13 +442,13 @@ void OttoMakey::turn(float steps, int T, int dir){
 
     
   if (dir == LEFT) {  
-	  set_A[0] = 30; //-- Left hip servo
+	  set_A[0] = 40; //-- Left hip servo   //humanoid was 30
 	  set_A[1] = 10; //-- Right hip servo
     set_O[6] = -10;
   }
   else {
 	  set_A[0] = 10;
-	  set_A[1] = 30;
+	  set_A[1] = 40;  //humanoid was 30
     set_O[6] = 10;
   }
     
@@ -463,28 +466,37 @@ void OttoMakey::bend (int steps, int T, int dir){
 
   	//Time of the bend movement. Fixed parameter to avoid falls
 	int T2 = 800;
-
+Serial.print("bend: dir ");
+Serial.println(dir);
 	//Bend movement
 	for (int i = 0; i<steps; i++)
 	{
 		set_A[0] = 90;
 		set_A[1] = 90;
-		set_A[2] = (dir == -1) ? 180-35 : 62;
-		set_A[3] = (dir == -1) ? 180-60 : 35;
+		set_A[2] = (dir == -1) ? 180-30 : 50;   //was 180-35 : 62  for humanoid
+		set_A[3] = (dir == -1) ? 180-50 : 30;   //was 180-60 : 35
 		set_A[4] = 20;
 		set_A[5] = 60;
 	  set_A[6] = 80;
 
+Serial.print("bend 1 A2 ");
+Serial.println(set_A[2]);
+Serial.print("bend 1 A3 ");
+Serial.println(set_A[3]);
 		_moveServos(T2 / 2, set_A);
 
 		set_A[0] = 90;
 		set_A[1] = 90;
-		set_A[2] = (dir == -1) ? 180 - 105 : 62;
-		set_A[3] = (dir == -1) ? 180 - 60 : 105;
+		set_A[2] = (dir == -1) ? 180 - 120 : 50;   //was 180 - 105 : 62 for humanoid
+		set_A[3] = (dir == -1) ? 180 - 50 : 120;  // was 180 - 60 : 105;
 		set_A[4] = 60;
 		set_A[5] = 20;
 	  set_A[6] = 100;
 
+Serial.print("bend 2 A2 ");
+Serial.println(set_A[2]);
+Serial.print("bend 1 A3 ");
+Serial.println(set_A[3]);
 		_moveServos(T2 / 2, set_A);
 		delay(T*0.8);
 
@@ -523,8 +535,8 @@ void OttoMakey::shakeLeg (int steps,int T,int dir){
 		//Bend movement
 		set_A[0] = 90;
 		set_A[1] = 90;
-		set_A[2] = (dir == -1) ? 180 - 35 : 58;
-		set_A[3] = (dir == -1) ? 180 - 58 : 35;
+		set_A[2] = (dir == -1) ? 180-30 : 50;   //180 - 35 : 58;
+		set_A[3] = (dir == -1) ? 180 - 50 : 30;  //180 - 58 : 35;
 		set_A[4] = 90;
 		set_A[5] = 90;
 	  set_A[6] = 100;
@@ -533,8 +545,8 @@ void OttoMakey::shakeLeg (int steps,int T,int dir){
 		
 		set_A[0] = 90;
 		set_A[1] = 90;
-		set_A[2] = (dir == -1) ? 180 - 120 : 58;
-		set_A[3] = (dir == -1) ? 180 - 58 : 120;
+		set_A[2] = (dir == -1) ? 180-30 : 120;   //180 - 120 : 58;
+		set_A[3] = (dir == -1) ? 180 - 50 : 120;   //180 - 58 : 120;
 		set_A[4] = 100;
 		set_A[5] = 80;
 	  set_A[6] = 90;
